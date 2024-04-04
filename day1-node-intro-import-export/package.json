@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "name": "day1-node-intro-import-export",
+  "version": "0.0.1",
+  "description": "Backend Course Day 1 - Nodejs intro import export",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "import",
+    "export",
+    "npm",
+    "packages",
+    "modules"
+  ],
+  "author": "Ahmed Nasr",
+  "license": "ISC"
+}
