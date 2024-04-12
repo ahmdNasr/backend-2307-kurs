@@ -1,0 +1,16 @@
+{
+  "name": "day7-crud-routes-api-client",
+  "version": "1.0.0",
+  "description": "Finance Tracker Backend Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ahmed Nasr",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
