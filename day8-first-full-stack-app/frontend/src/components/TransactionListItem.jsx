@@ -1,10 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import EditTransactionForm from "./EditTransactionForm";
 
 const TransactionListItem = ({ transaction, setTransactions }) => {
   //   const navigate = useNavigate();
   //   const navigateToDetailPage = () => {
   //     navigate("/transaction/" + transaction.id);
   //   };
+
+  const [showEditForm, setShowEditForm] = useState(false); // edit form nicht anzeigen am anfang
 
   const deleteTransaction = () => {
     fetch(`http://localhost:3003/api/v1/transactions/${transaction.id}`, {
@@ -15,27 +19,52 @@ const TransactionListItem = ({ transaction, setTransactions }) => {
       .catch((err) => console.log(err));
   };
   return (
-    <div>
-      <Link to={"/transaction/" + transaction.id}>
-        <p
-          className="transaction-info-box"
-          //   onClick={() => navigateToDetailPage()}
-        >
-          <div style={{ display: "flex", gap: 8 }}>
-            <span className="datestring">
-              {new Date(transaction.timestamp).toLocaleString()}
+    <>
+      <div
+        style={{ display: "flex", justifyContent: "space-between", gap: 24 }}
+      >
+        <Link to={"/transaction/" + transaction.id}>
+          <p
+            className="transaction-info-box"
+            //   onClick={() => navigateToDetailPage()}
+          >
+            <div style={{ display: "flex", gap: 8, minWidth: 320 }}>
+              <span className="datestring">
+                {new Date(transaction.timestamp).toLocaleString()}
+              </span>
+              <b>{transaction.description}</b>
+            </div>
+            <span className={transaction.type + "-transaction-amount"}>
+              {transaction.type === "income" ? "+" : "-"}
+              {transaction.amount} EUR
             </span>
-            <b>{transaction.description}</b>
-          </div>
-          <span className={transaction.type + "-transaction-amount"}>
-            {transaction.type === "income" ? "+" : "-"}
-            {transaction.amount} EUR
-          </span>
-        </p>
-      </Link>
+          </p>
+        </Link>
 
-      <button onClick={() => deleteTransaction()}>❌</button>
-    </div>
+        <div>
+          <button
+            style={{ background: "none" }}
+            onClick={() => setShowEditForm(!showEditForm)}
+          >
+            🖊️
+          </button>
+          <button
+            style={{ background: "none" }}
+            onClick={() => deleteTransaction()}
+          >
+            ❌
+          </button>
+        </div>
+      </div>
+
+      <div style={{ display: showEditForm ? "block" : "none" }}>
+        <EditTransactionForm
+          transaction={transaction}
+          setTransactions={setTransactions}
+          setShowEditForm={setShowEditForm}
+        />
+      </div>
+    </>
   );
 };
 

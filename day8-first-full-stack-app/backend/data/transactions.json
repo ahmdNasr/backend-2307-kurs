@@ -10,15 +10,8 @@
     "id": 2,
     "timestamp": 1712909901255,
     "type": "expense",
-    "description": "Einkauf",
+    "description": "Einkaufen",
     "amount": 102.49
-  },
-  {
-    "id": 3,
-    "timestamp": 1712909901255,
-    "type": "expense",
-    "description": "E-Scooter für Beate",
-    "amount": 499
   },
   {
     "id": 4,

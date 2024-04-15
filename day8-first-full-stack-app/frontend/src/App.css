@@ -57,3 +57,23 @@
   justify-content: space-between;
   color: black;
 }
+
+.transaction-form {
+  display: flex;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.transaction-form input {
+  width: 100%;
+  font-size: larger;
+  border: none;
+}
+.transaction-form button {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0px;
+}
