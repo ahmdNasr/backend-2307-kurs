@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "timestamp": 1712908901255,
+    "type": "income",
+    "description": "Gehalt 03/24",
+    "amount": 2234.93
+  },
+  {
+    "id": 2,
+    "timestamp": 1712909901255,
+    "type": "expense",
+    "description": "Einkaufen",
+    "amount": 102.49
+  },
+  {
+    "id": 4,
+    "timestamp": 1712900001255,
+    "type": "expense",
+    "description": "Buch bei Amazon",
+    "amount": 25.3
+  },
+  {
+    "id": 5,
+    "timestamp": 1712960001255,
+    "type": "expense",
+    "description": "Fitness Coaching",
+    "amount": 35
+  },
+  {
+    "id": 1713262725998,
+    "timestamp": 1713262725998,
+    "type": "income",
+    "description": "Scooter",
+    "amount": 494
+  },
+  {
+    "id": 1713262797270,
+    "timestamp": 1713262797270,
+    "type": "income",
+    "description": "Scooter",
+    "amount": 30,
+    "fileName": "c30a3a882d32f5ddbc3b709d58b88c9f"
+  },
+  {
+    "id": 1713263354638,
+    "timestamp": 1713263354638,
+    "type": "income",
+    "description": "Pizza",
+    "amount": 10,
+    "fileName": "409a81980aecacde908d91f1b9fa74f0"
+  }
+]
