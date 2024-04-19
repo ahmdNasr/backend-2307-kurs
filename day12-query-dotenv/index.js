@@ -13,5 +13,5 @@ app.get("/movies", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-const PORT = 3005;
+const PORT = process.env.PORT || 3005; // entwender aus der .env den port nehmen, oder falls nichrt vorhanden, nimm 3005
 app.listen(PORT, () => console.log("Server ready at port", PORT));
