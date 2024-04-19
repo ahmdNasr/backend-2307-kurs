@@ -18,20 +18,34 @@ app.get("/movies", (req, res) => {
 
   MoviesAPI(process.env.API_KEY)
     .then((movies) =>
-      movies
-        .filter((movie) =>
-          titleSearch ? movie.title.toLowerCase().includes(titleSearch) : true
-        )
-        .filter((movie) => (year ? Number(movie.year) === year : true)) // "2001" === "2001" -> true \\\\\ 2001 === 2001 -> true
-        .filter((movie) =>
-          directorSearch
-            ? movie.director.toLowerCase().includes(directorSearch)
-            : true
-        )
-        .filter((movie) =>
-          genre ? movie.genre.map((g) => g.toLowerCase()).includes(genre) : true
-        )
-        .filter((movie) => (minRating ? Number(movie.rate) >= minRating : true))
+      titleSearch
+        ? movies.filter((movie) =>
+            movie.title.toLowerCase().includes(titleSearch)
+          )
+        : movies
+    )
+    .then(
+      (movies) =>
+        year ? movies.filter((movie) => Number(movie.year) === year) : movies // "2001" === "2001" -> true \\\\\ 2001 === 2001 -> true
+    )
+    .then((movies) =>
+      directorSearch
+        ? movies.filter((movie) =>
+            movie.director.toLowerCase().includes(directorSearch)
+          )
+        : movies
+    )
+    .then((movies) =>
+      genre
+        ? movies.filter((movie) =>
+            movie.genre.map((g) => g.toLowerCase()).includes(genre)
+          )
+        : movies
+    )
+    .then((movies) =>
+      minRating
+        ? movies.filter((movie) => Number(movie.rate) >= minRating)
+        : movies
     )
     .then((moviesFiltered) => res.json(moviesFiltered))
     .catch((err) => res.status(500).json(err));

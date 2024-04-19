@@ -16,22 +16,30 @@ app.get("/movies", (req, res) => {
   const genre = req.query.genre?.toLowerCase();
   const minRating = Number(req.query.minRating) || 0; // minRating 0 wenn kein gültiger Wert, damit wir JEDE movie nehmen im filter
 
+  const filterIf = (value, array, filter) =>
+    value ? array.filter(filter) : array;
+
   MoviesAPI(process.env.API_KEY)
     .then((movies) =>
-      movies
-        .filter((movie) =>
-          titleSearch ? movie.title.toLowerCase().includes(titleSearch) : true
-        )
-        .filter((movie) => (year ? Number(movie.year) === year : true)) // "2001" === "2001" -> true \\\\\ 2001 === 2001 -> true
-        .filter((movie) =>
-          directorSearch
-            ? movie.director.toLowerCase().includes(directorSearch)
-            : true
-        )
-        .filter((movie) =>
-          genre ? movie.genre.map((g) => g.toLowerCase()).includes(genre) : true
-        )
-        .filter((movie) => (minRating ? Number(movie.rate) >= minRating : true))
+      filterIf(titleSearch, movies, (movie) =>
+        movie.title.toLowerCase().includes(titleSearch)
+      )
+    )
+    .then((movies) =>
+      filterIf(year, movies, (movie) => Number(movie.year) === year)
+    )
+    .then((movies) =>
+      filterIf(directorSearch, movies, (movie) =>
+        movie.director.toLowerCase().includes(directorSearch)
+      )
+    )
+    .then((movies) =>
+      filterIf(genre, movies, (movie) =>
+        movie.genre.map((g) => g.toLowerCase()).includes(genre)
+      )
+    )
+    .then((movies) =>
+      filterIf(minRating, movies, (movie) => Number(movie.rate) >= minRating)
     )
     .then((moviesFiltered) => res.json(moviesFiltered))
     .catch((err) => res.status(500).json(err));
