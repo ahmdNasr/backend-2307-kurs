@@ -72,7 +72,6 @@ app.delete("/api/v1/recipes/:recipeId", (req, res) => {
 // add bewertung to rezept
 app.post("/api/v1/recipes/:recipeId/ratings", (req, res) => {
   const newRatingInfo = {
-    // _id,
     text: req.body.text, // hat super geschmeckt das rezept, freue mich auf das nächste
     stars: req.body.stars, // 5 stars
     recipeId: ObjectId.createFromHexString(req.params.recipeId), // "663d000149af23e0230aaf39"
