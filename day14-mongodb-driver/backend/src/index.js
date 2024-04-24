@@ -1,12 +1,15 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import { RezepteDAO } from "./db-access/rezepteDAO.js";
 import { BewertungenDAO } from "./db-access/bewertungenDAO.js";
 import { ObjectId } from "mongodb";
 
 const app = express();
 
+app.use(cors());
 app.use(morgan("dev"));
+app.use(express.static("data/images")); // static file server
 app.use(express.json()); // body parser
 
 app.get("/", (req, res) => res.json({ hello: "world" }));
