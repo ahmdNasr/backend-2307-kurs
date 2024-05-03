@@ -2,7 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { connectToDatabase } from "./models/index.js";
-import { BewertungenService, RezepteService } from "./service/index.js";
+import { recipeRouter } from "./routes/recipeRouter.js";
+import { ratingRouter } from "./routes/ratingRouter.js";
 
 const app = express();
 
@@ -11,79 +12,9 @@ app.use(morgan("dev"));
 app.use(express.static("data/images")); // static file server
 app.use(express.json()); // body parser
 
-app.get("/", (req, res) => res.json({ hello: "world" }));
-
-app.get("/api/v1/recipes", (req, res) => {
-  RezepteService.showAllRecipes()
-    .then((recipes) => res.json(recipes))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not add find all recipes" });
-    });
-});
-
-app.get("/api/v1/recipes/:recipeId", (req, res) => {
-  const recipeId = req.params.recipeId;
-  RezepteService.showRecipeDetail(recipeId)
-    .then((foundRecipeWithDetails) => res.json(foundRecipeWithDetails || {}))
-    .catch((err) => {
-      console.log(err);
-      res
-        .status(500)
-        .json({ err, message: "Could not add find recipe " + recipeId });
-    });
-});
-
-app.post("/api/v1/recipes", (req, res) => {
-  const newRecipe = req.body;
-  RezepteService.addRecipe(newRecipe)
-    .then((addedRecipe) => res.json(addedRecipe || {}))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not add new recipe" });
-    });
-});
-
-app.patch("/api/v1/recipes/:recipeId", (req, res) => {
-  const recipeId = req.params.recipeId;
-  const updateInfo = req.body;
-  // Rezept.findOneAndUpdate({ _id: recipeId }, updateInfo, { new: true })
-  RezepteService.editRecipe(recipeId, updateInfo)
-    .then((updatedRecipe) => res.json(updatedRecipe || {}))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not add new recipe" });
-    });
-});
-
-app.delete("/api/v1/recipes/:recipeId", (req, res) => {
-  const recipeId = req.params.recipeId;
-  RezepteService.removeRecipe(recipeId)
-    .then((deletedRecipe) => res.json(deletedRecipe || {}))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not remove recipe" });
-    });
-});
-
-// add bewertung to rezept
-app.post("/api/v1/recipes/:recipeId/ratings", (req, res) => {
-  BewertungenService.addRatingToRecipe(req.params.recipeId, req.body)
-    .then((addedRating) => res.json(addedRating || {}))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not add new recipe" });
-    });
-});
-
-app.delete("/api/v1/ratings/:ratingId", (req, res) => {
-  BewertungenService.removeRating(req.params.ratingId)
-    .then((deletedRating) => res.json(deletedRating || {}))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Could not add new recipe" });
-    });
-});
+// route an den recipeRouter fangen mit der prefix '/api/v1/recipes' an
+app.use("/api/v1/recipes", recipeRouter);
+app.use("/api/v1/ratings", ratingRouter);
 
 connectToDatabase()
   .then(() => {
