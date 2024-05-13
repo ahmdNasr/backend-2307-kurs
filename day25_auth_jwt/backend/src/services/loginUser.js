@@ -7,6 +7,9 @@ export async function loginUser({ email, password }) {
   const user = await User.findOne({ email });
   if (!user) throw new Error("Invalid login");
 
+  if (!user.isEmailVerified)
+    throw new Error("Email not verified, login aborted");
+
   const passwordHash = hash(`${password}${user.passwordSalt}`);
   const correctPassword = passwordHash === user.passwordHash;
   if (!correctPassword) throw new Error("Invalid login");

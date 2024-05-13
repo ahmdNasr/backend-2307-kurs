@@ -8,6 +8,15 @@ const userSchema = new mongoose.Schema(
     bio: { type: String, default: "Hello I am using Todo.io!" },
     passwordHash: { type: String, required: true, trim: true }, // hash of password (not clear-text!)
     passwordSalt: { type: String, required: true, trim: true },
+    isEmailVerified: { type: Boolean, default: false },
+    sixDigitCode: {
+      type: String,
+      required: true,
+      // andere option, ist den code im model zu generieren über mongoose default function
+      // default: () => {
+      //   return generateRandomSixDigitCode();
+      // },
+    },
   },
   { collection: "users", timestamps: true }
 );

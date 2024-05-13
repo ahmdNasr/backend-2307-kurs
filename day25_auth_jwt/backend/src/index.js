@@ -42,6 +42,25 @@ app.post("/api/v1/users/login", async function postLoginUserCtrl(req, res) {
   }
 });
 
+app.post(
+  "/api/v1/users/verifyEmail",
+  async function postVerifyUserEmailCtrl(req, res) {
+    try {
+      const verifyEmailInfo = {
+        userId: req.body.userId,
+        sixDigitCode: req.body.sixDigitCode,
+      };
+      const result = await UserService.verifyUserEmail(verifyEmailInfo);
+      res.json({ result });
+    } catch (err) {
+      console.log(err);
+      res
+        .status(500)
+        .json({ err, message: err.message || "Could not register" });
+    }
+  }
+);
+
 app.get(
   "/api/v1/todos",
   doJwtAuth,
