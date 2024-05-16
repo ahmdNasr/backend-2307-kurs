@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { backendUrl } from "../api/api";
 
-const LoginPage = ({ setToken, setRefreshToken, setUser }) => {
+const LoginPage = ({ setToken, setUser }) => {
   const [email, setEmail] = useState("resul.sadriu@hotmail.com");
   const [password, setPassword] = useState("hallo123");
 
@@ -17,6 +17,7 @@ const LoginPage = ({ setToken, setRefreshToken, setUser }) => {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
 
     const data = await res.json();
@@ -28,7 +29,6 @@ const LoginPage = ({ setToken, setRefreshToken, setUser }) => {
 
     // save token --> "logged in"
     setToken(data.result.tokens.accessToken);
-    setRefreshToken(data.result.tokens.refreshToken);
     setUser(data.result.user);
   };
   return (

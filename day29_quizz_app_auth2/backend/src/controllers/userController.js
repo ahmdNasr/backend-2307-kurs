@@ -20,6 +20,9 @@ async function postLoginUserCtrl(req, res) {
       password: req.body.password,
     };
     const result = await UserService.loginUser(userInfo);
+    if (result.tokens.refreshToken) {
+      req.session.refreshToken = result.tokens.refreshToken; // refresh token in http only cookie session speichern
+    }
     res.json({ result });
   } catch (err) {
     console.log(err);
@@ -43,11 +46,10 @@ async function postVerifyUserEmailCtrl(req, res) {
 // doJwtAuth
 async function postRefreshToken(req, res) {
   try {
-    if (req.verifiedTokenClaims.type !== "refresh") {
-      return res.status(401).json({ message: "Token must be of type refresh" });
-    }
     const result = await UserService.refreshToken(req.authenticatedUserId);
-    res.json({ result });
+    setTimeout(() => {
+      res.json({ result });
+    }, 700);
   } catch (err) {
     console.log(err);
     res.status(500).json({ err, message: err.message || "Could not register" });
@@ -67,10 +69,16 @@ async function deleteUserCtrl(req, res) {
   }
 }
 
+async function logoutUser(req, res) {
+  req.session.refreshToken = null;
+  res.status(200).json({ result: { message: "you are now logged out" } });
+}
+
 export const UserController = {
   postRegisterUserCtrl,
   postLoginUserCtrl,
   postVerifyUserEmailCtrl,
   postRefreshToken,
   deleteUserCtrl,
+  logoutUser,
 };

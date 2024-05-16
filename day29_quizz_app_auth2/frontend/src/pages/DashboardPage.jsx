@@ -21,10 +21,11 @@ const DashboardPage = ({ token, user }) => {
     }
 
     fetchQuizzes();
+    // fetchUser();
   }, []);
   return (
     <main>
-      <h1>Welcome back {user.firstname}</h1>
+      {/* <h1>Welcome back {user.firstname}</h1> */}
       <h2>Quizzio Dashboard</h2>
 
       {quizzes.map((quiz) => (
