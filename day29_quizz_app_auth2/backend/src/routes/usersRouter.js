@@ -15,4 +15,5 @@ export const usersRouter = express
     validateRefreshTokenInCookieSession,
     UserController.postRefreshToken
   )
+  .post("/logout", UserController.postLogoutUser)
   .delete("/:userId", doJwtAuth, UserController.deleteUserCtrl);

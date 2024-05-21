@@ -20,10 +20,19 @@ export async function getQuizStatsForUser(quizId, userId) {
 
   const correctAnswers = answers.filter((answer) => answer.isCorrect); // answer.isCorrect === true
 
+  const numberOfQuestions = questionsOfQuiz.length;
+  const numberOfAnsweredQuestions = answers.length;
+  const numberCorrectAnswers = correctAnswers.length;
+
+  const percentAnswered = numberOfAnsweredQuestions / numberOfQuestions;
+  const percentCorrect = numberCorrectAnswers / numberOfAnsweredQuestions;
+  const score = (percentAnswered * percentCorrect * 100).toFixed(2);
+
   return {
     quiz,
-    numberOfQuestions: questionsOfQuiz.length,
-    numberOfAnsweredQuestions: answers.length,
-    numberCorrectAnswers: correctAnswers.length,
+    numberOfQuestions,
+    numberOfAnsweredQuestions,
+    numberCorrectAnswers,
+    score,
   };
 }

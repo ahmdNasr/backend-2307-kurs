@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { backendUrl } from "../api/api";
 
 const DashboardPage = ({ token, user }) => {
@@ -23,10 +24,26 @@ const DashboardPage = ({ token, user }) => {
     fetchQuizzes();
     // fetchUser();
   }, []);
+
+  const navigate = useNavigate();
+  const logoutUser = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch(`${backendUrl}/api/v1/users/logout`, {
+      method: "POST",
+      credentials: "include", // !!! nötig damit das Setzen des Refresh-Tokens auf null (im backend) übernommen wird
+    });
+
+    const data = await res.json();
+    if (!data.result) return alert("Could not log out");
+
+    navigate("/login");
+  };
   return (
     <main>
       {/* <h1>Welcome back {user.firstname}</h1> */}
       <h2>Quizzio Dashboard</h2>
+      <button onClick={logoutUser}>Logout</button>
 
       {quizzes.map((quiz) => (
         <p key={quiz._id}>{quiz.name}</p>

@@ -69,8 +69,8 @@ async function deleteUserCtrl(req, res) {
   }
 }
 
-async function logoutUser(req, res) {
-  req.session.refreshToken = null;
+async function postLogoutUser(req, res) {
+  req.session.refreshToken = null; // refresh token löschen
   res.status(200).json({ result: { message: "you are now logged out" } });
 }
 
@@ -80,5 +80,5 @@ export const UserController = {
   postVerifyUserEmailCtrl,
   postRefreshToken,
   deleteUserCtrl,
-  logoutUser,
+  postLogoutUser,
 };
