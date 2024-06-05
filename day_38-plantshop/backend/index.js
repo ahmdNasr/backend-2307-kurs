@@ -6,13 +6,12 @@ import { userRouter } from "./user/user.routes.js";
 
 const app = express();
 
-app.use(express.json())
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
-app.use('/users', userRouter)
+app.use(express.json());
 
-await mongoose.connect(process.env.MONGODB_URI, {dbName: 'plantshop'})
+app.use("/users", userRouter);
+
+await mongoose.connect(process.env.MONGODB_URI, { dbName: "plantshop" });
 const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => console.log(`Server is listening on port: ${PORT}`))
-
-
-
+app.listen(PORT, () => console.log(`Server is listening on port: ${PORT}`));
