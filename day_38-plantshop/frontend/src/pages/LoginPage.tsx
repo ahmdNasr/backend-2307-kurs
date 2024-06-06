@@ -1,23 +1,24 @@
 import { useState } from "react";
+import { postlogin } from "../utils/api";
+import { useShopState } from "../zustand";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {user, setUser} = useShopState()
 
-  const submitLogin = () => {
-    console.log({ email, password });
-    fetch("http://localhost:9000/users/login", {
-      body: JSON.stringify({ email, password }),
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  console.log({user})
+
+
+  const submitLogin = async () => {
+    const user = await postlogin({email, password}).json() 
+    setUser(user)
   };
 
   return (
+
     <form>
+      <pre>{JSON.stringify(user)}</pre>
       <label>
         Email
         <input

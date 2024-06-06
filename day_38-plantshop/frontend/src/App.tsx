@@ -1,6 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import Layout from "./components/Layout";
 
 const router = createBrowserRouter([
   {
@@ -9,12 +10,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage/>,
+    element: <LoginPage />,
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
+  );
 }
 
 export default App;

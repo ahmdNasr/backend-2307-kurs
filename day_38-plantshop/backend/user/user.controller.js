@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { createVerificationCode } from "../utils/createVerificationCode.js";
 import { emailTransport } from "../utils/emailTransport.js";
 import { createToken } from "../utils/createToken.js";
-import {userToView} from './user.helpers.js'
+import { userToView } from "./user.helpers.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -57,10 +57,23 @@ export const loginUser = async (req, res) => {
         .json({ message: "Password incorrect. Please try again" });
     }
 
-    const token = createToken(user)
-    res.cookie("token", token, {maxAge: 7 * 24 * 3600 * 1000, httpOnly: true})
-    res.json({user: userToView(user)})
+    const token = createToken(user);
+    res.cookie("token", token, {
+      maxAge: 7 * 24 * 3600 * 1000,
+      httpOnly: true,
+    });
+    res.json({ user: userToView(user) });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
+export const getCurrentUser = async (req, res) => {
+  try {
+    const _id = req.authenticatedUser._id;
+    const user = await User.findById(_id);
+    res.json({ user: userToView(user) });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

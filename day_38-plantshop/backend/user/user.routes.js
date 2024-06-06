@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { registerUser, loginUser } from "./user.controller.js";
+import { registerUser, loginUser, getCurrentUser } from "./user.controller.js";
+import { checkAuth } from "../middleware/checkAuth.js";
 
 export const userRouter = Router()
   .post("/register", registerUser)
@@ -11,6 +12,8 @@ export const userRouter = Router()
   .post("/logout", () => {
     console.log("logout");
   })
-  .get("/current-user", () => {
-    console.log("get-user");
+  .get("/current-user", checkAuth(), getCurrentUser)
+  .get("/adminstuff", checkAuth({onlyAdmins: true}), (req, res) => {
+    console.log("ahhhh, adminstuff");
+    res.end()
   });
