@@ -11,14 +11,13 @@ const LoginPage = () => {
 
 
   const submitLogin = async () => {
-    const user = await postlogin({email, password}).json() 
+    const {user} = await postlogin({email, password}).json() 
     setUser(user)
   };
 
   return (
 
     <form>
-      <pre>{JSON.stringify(user)}</pre>
       <label>
         Email
         <input
