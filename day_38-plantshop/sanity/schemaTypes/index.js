@@ -1,1 +1,2 @@
-export const schemaTypes = []
+import plant from "./plant"
+export const schemaTypes = [plant]
