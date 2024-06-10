@@ -7,19 +7,27 @@ import Layout from "./components/Layout";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage/>,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
+    element: <Layout/>,
+    children: [
+      {
+        path: "/",
+        element: (
+            <HomePage />
+        ),
+      },
+      {
+        path: "/login",
+        element: (
+            <LoginPage />
+        )
+      },    
+    ]
   },
 ]);
 
 function App() {
   return (
-    <Layout>
       <RouterProvider router={router} />
-    </Layout>
   );
 }
 

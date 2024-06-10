@@ -8,8 +8,6 @@ export const createToken = (user)=> {
         sub: user._id, 
         isAdmin: user.isAdmin
     }
-
     const token = jwt.sign(payload, jwtSecret, {expiresIn: "1w"})
-
     return token
 }

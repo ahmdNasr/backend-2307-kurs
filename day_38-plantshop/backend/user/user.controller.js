@@ -79,3 +79,9 @@ export const getCurrentUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const logout = async (_req, res)=>{
+  res.clearCookie("token")
+  res.json({message: "Logout successful!"})
+}

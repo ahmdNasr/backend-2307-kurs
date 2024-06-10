@@ -19,7 +19,13 @@ export const postlogin = ({ email, password }: LoginParams) =>
     credentials: "include",
   });
 
-// fetch("http://localhost:9000/users/login", {
+
+export const postlogout = () =>
+  api.post("users/logout", {
+    credentials: "include",
+  });
+  
+  // fetch("http://localhost:9000/users/login", {
 //   body: JSON.stringify({ email, password }),
 //   method: "POST",
 //   credentials: "include",
