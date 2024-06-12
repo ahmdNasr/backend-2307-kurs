@@ -28,7 +28,17 @@ export const useShopState = create<ShopState>()(
       cart: [],
       setUser: (newUser) => set({ user: newUser }),
       addToCart: (productId) => {
-        set(({ cart }) => ({ cart: [...cart, { productId, amount: 1 }] }));
+        // TODO: Logik so umschreiben dass wir keine Parameter mutieren
+        set(({ cart }) => {
+          const existingItem = cart.find((item)=>(item.productId === productId))
+          if (existingItem) {
+            existingItem.amount++
+          } else {
+            cart.push({productId, amount: 1})
+          }
+          return {cart}
+          // return { cart: [...cart, { productId, amount: 1 }] };
+        });
       },
       clearCart: () => set({ cart: [] }),
     }),

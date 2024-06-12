@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import "dotenv/config";
 import { userRouter } from "./user/user.routes.js";
+import { orderRouter } from "./order/order.routes.js";
 import cookieParser from "cookie-parser";
 
 export const app = express();
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/users", userRouter);
+app.use("/orders", orderRouter);
 
 
 const PORT = process.env.PORT || 9000;

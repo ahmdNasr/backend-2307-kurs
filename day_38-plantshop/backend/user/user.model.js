@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema(
         password: { type: String, required: true},
         verificationCode: { type: String},
         isAdmin: { type: Boolean, default: false, required: true},
-        isVerified: { type: Boolean, default: false, required: true}
+        isVerified: { type: Boolean, default: false, required: true},
+        // orders: [{type: mongoose.Schema.Types.UUID, ref: "Order" }]
     },
     { collection: "users", timestamps: true}
 )

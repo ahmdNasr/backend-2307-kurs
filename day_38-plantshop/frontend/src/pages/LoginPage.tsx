@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { postlogin } from "../utils/api";
 import { useShopState } from "../zustand";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {user, setUser} = useShopState()
+  const navigate = useNavigate()
 
   console.log({user})
 
@@ -13,6 +15,8 @@ const LoginPage = () => {
   const submitLogin = async () => {
     const {user} = await postlogin({email, password}).json() 
     setUser(user)
+    navigate('/')
+
   };
 
   return (

@@ -8,7 +8,9 @@ const Layout = () => {
   return (
     <div className="flex flex-col h-screen">
       <header className="flex justify-between flex-row">
-        <Link to="/">Logo</Link>
+      <Link to="/">Logo</Link>
+      <Link to="/cart">Cart</Link>
+        
         <nav>
           {user ? (
             <p>
