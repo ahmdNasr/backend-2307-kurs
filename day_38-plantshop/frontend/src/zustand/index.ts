@@ -6,6 +6,7 @@ interface User {
   firstname: string;
   isAdmin: boolean;
   isVerified: boolean;
+  imageUrl: string;
 }
 
 interface CartEntry {

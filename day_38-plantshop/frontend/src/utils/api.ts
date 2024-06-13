@@ -18,6 +18,12 @@ export const postlogin = ({ email, password }: LoginParams) =>
     credentials: "include",
   });
 
+export const postRegistration = (formData) =>
+  api.post("users/register", {
+    body: formData,
+    credentials: "include",
+  });
+  
 export const postlogout = () =>
   api.post("users/logout", {
     credentials: "include",

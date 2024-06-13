@@ -8,16 +8,25 @@ const Layout = () => {
   return (
     <div className="flex flex-col h-screen">
       <header className="flex justify-between flex-row">
-      <Link to="/">Logo</Link>
-      <Link to="/cart">Cart</Link>
-        
+        <Link to="/">Logo</Link>
+        <Link to="/cart">Cart</Link>
+
         <nav>
           {user ? (
             <p>
-              Hello {user.firstname} <LogoutButton />
+              Hello {user.firstname}
+              <img
+                className="w-6 h-6 rounded-full"
+                src={`${user.imageUrl}`}
+                alt=""
+              />
+              <LogoutButton />
             </p>
           ) : (
-            <Link to="/login">Login</Link>
+            <>
+              <Link to="/login">Login</Link>
+              <Link className="ml-2" to="/register">Register</Link>
+            </>
           )}
         </nav>
       </header>

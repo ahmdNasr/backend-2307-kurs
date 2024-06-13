@@ -4,10 +4,18 @@ import { createVerificationCode } from "../utils/createVerificationCode.js";
 import { emailTransport } from "../utils/emailTransport.js";
 import { createToken } from "../utils/createToken.js";
 import { userToView } from "./user.helpers.js";
+import { uploadImage } from "../utils/uploadImage.js";
 
 export const registerUser = async (req, res) => {
   try {
     const { firstname, lastname, email, password } = req.body;
+    console.log(req.body)
+    const image = req.file
+    console.log({file: req.file})
+
+    const uploadResult = image ? await uploadImage(image.buffer) : undefined
+    console.dir({uploadResult})
+
     const user = await User.findOne({ email });
     if (user) {
       res.status(400).json({ message: "User with this email exists! " });
@@ -24,6 +32,7 @@ export const registerUser = async (req, res) => {
       email,
       password: passwordHash,
       verificationCode,
+      imageUrl: uploadResult.secure_url
     });
 
     emailTransport.sendMail({

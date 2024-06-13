@@ -5,6 +5,7 @@ export const userToView = (user)=> {
         lastname: user.lastname, 
         email: user.email, 
         isVerified: user.isVerified, 
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        imageUrl: user.imageUrl
     }
 }
